@@ -1,6 +1,18 @@
+.app {
+    display: flex;
+    justify-content: center;
+}
+
 .mainContainer {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
