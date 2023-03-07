@@ -7,6 +7,7 @@
     height: 38px;
     background: #F3F4F6;
     border-radius: 6px;
+    margin: 10px;
 }
 
 .button {
@@ -31,4 +32,11 @@
     font-size: 14px;
     line-height: 15px;
     color: #4D5562;
+}
+
+.buttonText {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }

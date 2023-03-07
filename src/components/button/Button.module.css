@@ -5,11 +5,11 @@
     border: 1px solid #E2E3E5;
     border-radius: 6px;
 
-    font-style: normal;
     font-weight: 500;
     font-size: 14px;
     line-height: 15px;
 }
 
 .button:active {
-    border: 2px solid #5D5FEF;}
+    border: 2px solid #5D5FEF;
+}

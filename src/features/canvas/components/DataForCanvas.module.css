@@ -1,0 +1,22 @@
+.firstTextBlock {
+  width: 127px;
+  height: 17px;
+  margin: 5px 0;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #5D5FEF;
+}
+
+.secondTextBlock {
+  width: 106px;
+  height: 30px;
+
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: #6B7280;
+}

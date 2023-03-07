@@ -1,6 +1,13 @@
 .canvas {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+
     width: 243px;
     height: 448px;
     border: 2px dashed #C4C4C4;
     border-radius: 6px;
-}
+    margin: 10px;
+ }
