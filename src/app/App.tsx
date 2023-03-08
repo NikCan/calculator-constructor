@@ -1,5 +1,5 @@
 import {Canvas} from "features/canvas/Canvas";
-import {Sidebar} from "features/sidebar";
+import {Sidebar} from "features/sidebar/Sidebar";
 import {ViewToggle} from "components/view-toggle/ViewToggle";
 import s from './App.module.css'
 import {useState} from "react";

@@ -13,3 +13,12 @@
 .button:active {
     border: 2px solid #5D5FEF;
 }
+
+.inactive:active {
+    border: 1px solid #E2E3E5;
+}
+
+.disabled {
+    border: 1px solid #E2E3E5;
+    opacity: 0.5;
+}

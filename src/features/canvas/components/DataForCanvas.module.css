@@ -1,3 +1,9 @@
+.containerForData {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .firstTextBlock {
   width: 127px;
   height: 17px;

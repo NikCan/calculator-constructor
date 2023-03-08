@@ -1,9 +1,8 @@
 .canvas {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-content: center;
-    flex-wrap: wrap;
 
     width: 243px;
     height: 448px;

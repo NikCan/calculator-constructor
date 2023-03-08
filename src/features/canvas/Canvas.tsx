@@ -1,31 +1,32 @@
 import s from './Canvas.module.css'
-import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 import {DragEvent, useState} from "react";
 import {DataForCanvas} from "./components/DataForCanvas";
-import {Display} from "../sidebar/components/display/Display";
-import {OperationsBlock} from "../sidebar/components/operations-block/OperationsBlock";
-import {DigitalBlock} from "../sidebar/components/digital-block/DigitalBlock";
-import {Equals} from "../sidebar/components/equals/Equals";
-import {useAppDispatch, useAppSelector} from "../../app/rtk-hooks";
-import {setItem} from "./canvasSlice";
+import {Display} from "../../components/display/Display";
+import {OperationsBlock} from "../../components/operations-block/OperationsBlock";
+import {DigitalBlock} from "../../components/digital-block/DigitalBlock";
+import {Equals} from "../../components/equals/Equals";
+import {ItemType, removeItem, setItem} from "./canvasSlice";
+import {useAppSelector} from "hooks/use-app-selector";
+import {useAppDispatch} from 'hooks/use-app-dispatch';
 
 export const Canvas = () => {
   const [style, setStyle] = useState({})
   const [data, setData] = useState<string>('empty')
-  const item = useAppSelector(state => state.canvas.item)
+  const items = useAppSelector(state => state.canvas.itemsOnCanvas)
   const dispatch = useAppDispatch()
 
+  const doubleClickHandler = (item: ItemType) => dispatch(removeItem({item}))
   const dragStartHandler = () => {
     console.log('start')
   }
   const dragOverHandler = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
-    setStyle({background: '#F0F9FF'})
+    setStyle({...style, background: '#F0F9FF'})
     // setData('')
     console.log('over')
   }
   const dragLeaveHandler = () => {
-    setStyle({background: '#FFFFFF'})
+    setStyle({...style, background: '#FFFFFF'})
     // setData('empty')
     console.log('leave')
   }
@@ -35,7 +36,7 @@ export const Canvas = () => {
   const dropHandler = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     dispatch(setItem())
-    setStyle({background: '#FFFFFF', alignContent: 'flex-start'})
+    setStyle({background: '#FFFFFF', justifyContent: 'flex-start', border: '0'})
     setData('')
     console.log(e)
   }
@@ -49,10 +50,10 @@ export const Canvas = () => {
          onDrop={e => dropHandler(e)}
     >
       {data === 'empty' && <DataForCanvas/>}
-      {item === 'display' && <Display/>}
-      {/*<OperationsBlock/>*/}
-      {/*<DigitalBlock/>*/}
-      {/*<Equals/>*/}
+      {items.includes('display') && <Display doubleClickHandler={doubleClickHandler}/>}
+      {items.includes('operations') && <OperationsBlock doubleClickHandler={doubleClickHandler}/>}
+      {items.includes('digital') && <DigitalBlock doubleClickHandler={doubleClickHandler}/>}
+      {items.includes('equals') && <Equals doubleClickHandler={doubleClickHandler}/>}
     </div>
   )
 }
