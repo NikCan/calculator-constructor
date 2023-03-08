@@ -1,13 +1,18 @@
 import s from './Display.module.css'
 import {DragEvent} from "react";
+import {useAppDispatch} from "../../../../app/rtk-hooks";
+import {rememberItem} from "../../../canvas/canvasSlice";
 
 export const Display = () => {
+  const dispatch = useAppDispatch()
+
   const style = {cursor: 'move'}
 
   const dragStartHandler = () => {
+    dispatch(rememberItem({item: 'display'}))
     console.log('start')
   }
-  const dragOverHandler = (e:DragEvent<HTMLDivElement> ) => {
+  const dragOverHandler = (e: DragEvent<HTMLDivElement> ) => {
     e.preventDefault()
     console.log('over')
   }
@@ -26,7 +31,7 @@ export const Display = () => {
     <div className={s.container}
          style={style}
          draggable
-         // onDragStart={e => dragStartHandler()}
+         onDragStart={e => dragStartHandler()}
          // onDragOver={e => dragOverHandler(e)}
          // onDragLeave={e => dragLeaveHandler()}
          // onDragEnd={e => dragEndHandler()}
