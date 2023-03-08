@@ -1,9 +1,9 @@
 import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
-import {canvasReducer} from "../features/canvas/canvasSlice";
+import {appReducer} from "./appSlice";
 
 export const store = configureStore({
   reducer: {
-    canvas: canvasReducer,
+    app: appReducer,
   },
 });
 

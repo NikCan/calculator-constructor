@@ -11,10 +11,6 @@
     margin: 4px 0;
 }
 
-.disabled {
-    opacity: 0.5;
-}
-
 .equalsButton {
     width: 232px;
     height: 64px;
@@ -32,6 +28,6 @@
     border: 2px solid #FFFFFF;
 }
 
-.inactive:active {
-    border: 0;
+.inactiveEqualsButton {
+    pointer-events: none;
 }

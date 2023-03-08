@@ -1,11 +1,15 @@
 .sidebar {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-content: center;
-  flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
 
-  width: 243px;
-  height: 448px;
-  margin: 10px;
+    width: 243px;
+    height: 448px;
+    margin: 10px;
+}
+
+.disabledComponent {
+    opacity: 0.5;
 }

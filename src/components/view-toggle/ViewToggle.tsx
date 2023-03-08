@@ -1,25 +1,26 @@
 import s from './ViewToggle.module.css'
-import {Dispatch, SetStateAction, useState} from "react";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
+import {changeMode, ModeType} from "../../app/appSlice";
+import {useAppSelector} from "../../hooks/use-app-selector";
+import {useAppDispatch} from "../../hooks/use-app-dispatch";
+import {ToggleButton} from "../toggle-button/ToggleButton";
 
-type Props = {
-  setMode: Dispatch<SetStateAction<string>>
-  mode: string
-}
-export const ViewToggle = ({mode, setMode}: Props) => {
+export const ViewToggle = () => {
+  const dispatch = useAppDispatch()
+  const mode = useAppSelector(state => state.app.mode)
+
+  const clickHandler = (mode: ModeType) => dispatch(changeMode({mode}))
 
   return (
     <div className={s.toggleBox}>
-      <button onClick={() => setMode('canvas')}
-              className={mode === 'canvas' ? s.activeButton : s.button}>
-        <div className={s.buttonText}><VisibilityOutlinedIcon color={'primary'} fontSize={'small'}/>Runtime</div>
-      </button>
-      <button onClick={() => setMode('constructor')}
-              className={mode === 'constructor' ? s.activeButton : s.button}
-              style={{width: '133px'}}>
-        <div className={s.buttonText}><CodeOutlinedIcon color={'primary'} fontSize={'small'}/>Constructor</div>
-      </button>
+      <ToggleButton name={'runtime'} clickHandler={clickHandler} mode={mode} title={'Runtime'}>
+        <VisibilityOutlinedIcon color={'primary'} fontSize={'small'}/>
+      </ToggleButton>
+      <ToggleButton name={'constructor'} style={{width: '133px'}} clickHandler={clickHandler} mode={mode}
+                    title={'Constructor'}>
+        <CodeOutlinedIcon color={'primary'} fontSize={'small'}/>
+      </ToggleButton>
     </div>
   )
 }

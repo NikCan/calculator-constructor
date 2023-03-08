@@ -1,6 +1,14 @@
 import {DragEvent} from "react";
+import {ItemType, rememberItem} from "../app/appSlice";
+import {useAppDispatch} from "./use-app-dispatch";
 
 export const useDragDrop = () => {
+  const dispatch = useAppDispatch()
+
+  const dragStartHandler = (item: ItemType) => {
+    dispatch(rememberItem({item}))
+    console.log('start')
+  }
   const dragOverHandler = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     console.log('over')
@@ -16,6 +24,6 @@ export const useDragDrop = () => {
     console.log('drop')
   }
   return {
-    dragEndHandler, dragOverHandler, dragLeaveHandler, dropHandler
+    dragStartHandler, dragEndHandler, dragOverHandler, dragLeaveHandler, dropHandler
   }
 }

@@ -2,15 +2,15 @@ import {Canvas} from "features/canvas/Canvas";
 import {Sidebar} from "features/sidebar/Sidebar";
 import {ViewToggle} from "components/view-toggle/ViewToggle";
 import s from './App.module.css'
-import {useState} from "react";
+import {useAppSelector} from "../hooks/use-app-selector";
 
 function App() {
-  const [mode, setMode] = useState<string>('canvas')
+  const mode = useAppSelector(state => state.app.mode)
 
   return (
     <div className={s.app}>
       <div className={s.mainContainer}>
-        <ViewToggle mode={mode} setMode={setMode}/>
+        <ViewToggle/>
         <div className={s.container}>
           {mode === 'constructor' && <Sidebar/>}
           <Canvas/>

@@ -5,17 +5,21 @@ import {Display} from "../../components/display/Display";
 import {OperationsBlock} from "../../components/operations-block/OperationsBlock";
 import {DigitalBlock} from "../../components/digital-block/DigitalBlock";
 import {Equals} from "../../components/equals/Equals";
-import {ItemType, removeItem, setItem} from "./canvasSlice";
+import {ItemType, removeItem, setItem} from "../../app/appSlice";
 import {useAppSelector} from "hooks/use-app-selector";
 import {useAppDispatch} from 'hooks/use-app-dispatch';
 
 export const Canvas = () => {
   const [style, setStyle] = useState({})
   const [data, setData] = useState<string>('empty')
-  const items = useAppSelector(state => state.canvas.itemsOnCanvas)
-  const dispatch = useAppDispatch()
 
-  const doubleClickHandler = (item: ItemType) => dispatch(removeItem({item}))
+  const items = useAppSelector(state => state.app.itemsOnCanvas)
+  const mode = useAppSelector(state => state.app.mode)
+  const dispatch = useAppDispatch()
+  const constructionMode = mode === 'constructor'
+  const doubleClickHandler = (item: ItemType) => {
+    if (constructionMode) dispatch(removeItem({item}))
+  }
   const dragStartHandler = () => {
     console.log('start')
   }
@@ -50,10 +54,33 @@ export const Canvas = () => {
          onDrop={e => dropHandler(e)}
     >
       {data === 'empty' && <DataForCanvas/>}
-      {items.includes('display') && <Display doubleClickHandler={doubleClickHandler}/>}
-      {items.includes('operations') && <OperationsBlock doubleClickHandler={doubleClickHandler}/>}
-      {items.includes('digital') && <DigitalBlock doubleClickHandler={doubleClickHandler}/>}
-      {items.includes('equals') && <Equals doubleClickHandler={doubleClickHandler}/>}
+      {items.includes('display') &&
+          <div
+              onDoubleClick={() => doubleClickHandler('display')}
+          >
+              <Display inactive={constructionMode}/>
+          </div>}
+      {
+        items.includes('operations') &&
+          <div
+              onDoubleClick={() => doubleClickHandler('operations')}
+              style={constructionMode ? {cursor: 'move'} : {}} draggable={constructionMode}>
+              <OperationsBlock inactive={constructionMode}/>
+          </div>}
+      {
+        items.includes('digital') &&
+          <div
+              onDoubleClick={() => doubleClickHandler('digital')}
+              style={constructionMode ? {cursor: 'move'} : {}} draggable={constructionMode}>
+              <DigitalBlock inactive={constructionMode}/>
+          </div>}
+      {
+        items.includes('equals') &&
+          <div
+              onDoubleClick={() => doubleClickHandler('equals')}
+              style={constructionMode ? {cursor: 'move'} : {}} draggable={constructionMode}>
+              <Equals inactive={constructionMode}/>
+          </div>}
     </div>
   )
 }

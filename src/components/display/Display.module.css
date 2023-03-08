@@ -11,10 +11,6 @@
     margin: 4px 0;
 }
 
-.disabled {
-    opacity: 0.5;
-}
-
 .display {
     width: 232px;
     height: 52px;
@@ -30,4 +26,8 @@
 
 .container input {
     outline: none;
+}
+
+.inactiveItem input {
+    pointer-events: none;
 }
