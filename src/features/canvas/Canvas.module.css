@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
 
-    width: 243px;
+    width: 240px;
     height: 448px;
     border: 2px dashed #C4C4C4;
     border-radius: 6px;
@@ -16,10 +16,10 @@
     border: 0
 }
 
-.line::before {
-    display: block;
-    width: 240px;
-    height: 0;
-    content: '';
-    border: 1px solid #5D5FEF;
+.itemContainer {
+    margin: 4px 0;
+}
+
+.moveStyle {
+    cursor: move
 }

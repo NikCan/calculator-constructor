@@ -25,6 +25,9 @@ export const Canvas = () => {
   const canvasClasses = classNames(s.emptyCanvas, {
     [s.canvasWithData]: itemsOnCanvas.length !== 0 || mode === 'runtime',
   })
+  const classesForItem = (name: ItemNameType) => classNames(s.itemContainer, {
+    [s.moveStyle]: name !== 'display' && constructionMode
+  })
 
   const doubleClickHandler = (name: ItemNameType) => {
     if (constructionMode) dispatch(removeItem(name))
@@ -41,19 +44,21 @@ export const Canvas = () => {
         .filter(i => itemsOnCanvas.includes(i.name))
         .map(item => {
             const {Component, id, name} = item
-            return <div
-              key={id}
-              onDragStart={e => dragStartHandler(name)}
-              onDragOver={e => dragOverHandler(e, item)}
-              onDragLeave={e => dragLeaveHandler(e)}
-              onDragEnd={e => dragLeaveHandler(e)}
-              onDrop={e => dropHandler(e, item)}
-              onDoubleClick={() => doubleClickHandler(name)}
-              style={name !== 'display' && constructionMode ? {cursor: 'move'} : {}}
-              draggable={name !== 'display' && constructionMode}
-            >
-              <Component inactive={constructionMode}/>
-            </div>
+            return (
+              <div
+                key={id}
+                onDragStart={() => dragStartHandler(name)}
+                onDragOver={e => dragOverHandler(e, item)}
+                onDragLeave={e => dragLeaveHandler(e)}
+                onDragEnd={e => dragLeaveHandler(e)}
+                onDrop={e => dropHandler(e, item)}
+                onDoubleClick={() => doubleClickHandler(name)}
+                className={classesForItem(name)}
+                draggable={name !== 'display' && constructionMode}
+              >
+                <Component inactive={constructionMode}/>
+              </div>
+            )
           }
         )}
     </div>

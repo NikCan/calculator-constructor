@@ -7,12 +7,12 @@ type Props = {
 }
 
 export const Display = ({inactive}: Props) => {
-  const classesForContainer = classNames(s.container, {[s.inactiveItem]: inactive})
+  const classesForContainer = classNames(s.displayContainer, {[s.inactiveItem]: inactive})
   const {inputValue} = useCalculator()
 
   return (
     <div className={classesForContainer}>
-      <input value={inputValue} readOnly className={s.display}/>
+      <input value={inputValue} readOnly className={s.displayInput}/>
     </div>
   )
 }

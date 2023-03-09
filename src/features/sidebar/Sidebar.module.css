@@ -1,15 +1,26 @@
 .sidebar {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
 
-    width: 243px;
+    width: 240px;
     height: 448px;
     margin: 10px;
 }
 
+.itemContainer {
+    width: 240px;
+
+    background: #FFFFFF;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06), 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 4px 0;
+}
+
 .disabledComponent {
     opacity: 0.5;
+}
+
+.moveStyle {
+    cursor: move
 }
