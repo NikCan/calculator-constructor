@@ -1,7 +1,7 @@
 import s from './OperationsBlock.module.css'
 import {Button} from "../button/Button";
-import {operations} from "../../utils/constants/operations";
-import {useCalculator} from "../../hooks/use-calculator";
+import {operations} from "common/utils/constants/operations";
+import {useCalculator} from "common/hooks/use-calculator";
 
 type Props = {
   inactive?: boolean

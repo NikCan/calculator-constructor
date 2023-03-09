@@ -1,7 +1,7 @@
 import {Button} from "../button/Button";
 import s from './DigitalBlock.module.css'
 import {numbers} from "common/utils/constants/numbers";
-import {useCalculator} from "../../hooks/use-calculator";
+import {useCalculator} from "common/hooks/use-calculator";
 
 type Props = {
   inactive?: boolean

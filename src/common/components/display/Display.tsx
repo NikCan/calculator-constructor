@@ -1,6 +1,6 @@
 import s from './Display.module.css'
 import classNames from "classnames";
-import {useCalculator} from "../../hooks/use-calculator";
+import {useCalculator} from "common/hooks/use-calculator";
 
 type Props = {
   inactive?: boolean

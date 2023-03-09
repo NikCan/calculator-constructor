@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {ItemNameType} from "../common/utils/constants/items";
+import {ItemNameType} from "common/utils/constants/items";
 
 const slice = createSlice({
   name: "app",
