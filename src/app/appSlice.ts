@@ -1,30 +1,55 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {ItemNameType} from "../common/utils/constants/items";
 
 const slice = createSlice({
   name: "app",
   initialState: {
     mode: 'constructor' as ModeType,
-    draggedItem: '' as ItemType,
-    itemsOnCanvas: [] as ItemType[],
+    draggedItem: '' as ItemNameType,
+    itemsOnCanvas: [] as ItemNameType[],
+    inputValue: '0',
+    operation: '',
+    rememberedValue: '',
   },
   reducers: {
     changeMode(state, action: PayloadAction<{ mode: ModeType }>) {
       state.mode = action.payload.mode
     },
-    rememberItem(state, action: PayloadAction<{ item: ItemType }>) {
-      state.draggedItem = action.payload.item
+    rememberItem(state, action: PayloadAction<ItemNameType>) {
+      state.draggedItem = action.payload
     },
     setItem(state) {
-      state.itemsOnCanvas.push(state.draggedItem)
+      if (!state.itemsOnCanvas.includes(state.draggedItem)) state.itemsOnCanvas.push(state.draggedItem)
     },
-    removeItem(state, action: PayloadAction<{ item: ItemType }>) {
-      state.itemsOnCanvas = state.itemsOnCanvas.filter(i => i !== action.payload.item)
+    removeItem(state, action: PayloadAction<ItemNameType>) {
+      state.itemsOnCanvas = state.itemsOnCanvas.filter(i => i !== action.payload)
     },
-  },
+    setInputValueFromKey(state, action: PayloadAction<string>) {
+      if (state.inputValue === '0') {
+        state.inputValue = action.payload.toString()
+      } else {
+        state.inputValue = state.inputValue + action.payload
+      }
+    },
+    setInputValueFromInput(state, action: PayloadAction<string>) {
+      state.inputValue = action.payload
+    },
+    setOperation(state, action: PayloadAction<string>) {
+      state.operation = action.payload
+      state.rememberedValue = state.inputValue
+    },
+      },
 })
 
 export const appReducer = slice.reducer
-export const {rememberItem, setItem, removeItem, changeMode} = slice.actions
+export const {
+  setItem,
+  removeItem,
+  changeMode,
+  rememberItem,
+  setInputValueFromInput,
+  setInputValueFromKey,
+  setOperation
+} = slice.actions
 
-export type ItemType = 'display' | 'operations' | 'digital' | 'equals'
 export type ModeType = 'constructor' | 'runtime'

@@ -5,15 +5,14 @@ type Props = {
   title: number | string
   width?: string
   inactive?: boolean
+  callBack: (title: string) => void
 }
-export const Button = ({title, width, inactive}: Props) => {
+export const Button = ({title, width, inactive, callBack}: Props) => {
   const buttonClasses = classNames(s.button, {
     [s.inactiveButton]: inactive,
   })
-  const onClickHandler = () => {
-
-  }
+  const clickHandler = () => callBack(title as string)
   return <>
-    <button style={{width}} className={buttonClasses} onClick={onClickHandler}>{title}</button>
+    <button style={{width}} className={buttonClasses} onClick={clickHandler}>{title}</button>
   </>
 }

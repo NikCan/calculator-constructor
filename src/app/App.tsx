@@ -1,8 +1,8 @@
 import {Canvas} from "features/canvas/Canvas";
 import {Sidebar} from "features/sidebar/Sidebar";
-import {ViewToggle} from "components/view-toggle/ViewToggle";
+import {ViewToggle} from "common/components/view-toggle/ViewToggle";
 import s from './App.module.css'
-import {useAppSelector} from "../hooks/use-app-selector";
+import {useAppSelector} from "../common/hooks/use-app-selector";
 
 function App() {
   const mode = useAppSelector(state => state.app.mode)

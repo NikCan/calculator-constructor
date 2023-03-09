@@ -1,7 +1,7 @@
 import s from './ViewToggle.module.css'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
-import {changeMode, ModeType} from "../../app/appSlice";
+import {changeMode, ModeType} from "../../../app/appSlice";
 import {useAppSelector} from "../../hooks/use-app-selector";
 import {useAppDispatch} from "../../hooks/use-app-dispatch";
 import {ToggleButton} from "../toggle-button/ToggleButton";

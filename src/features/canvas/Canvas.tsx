@@ -1,86 +1,61 @@
 import s from './Canvas.module.css'
-import {DragEvent, useState} from "react";
 import {DataForCanvas} from "./components/DataForCanvas";
-import {Display} from "../../components/display/Display";
-import {OperationsBlock} from "../../components/operations-block/OperationsBlock";
-import {DigitalBlock} from "../../components/digital-block/DigitalBlock";
-import {Equals} from "../../components/equals/Equals";
-import {ItemType, removeItem, setItem} from "../../app/appSlice";
-import {useAppSelector} from "hooks/use-app-selector";
-import {useAppDispatch} from 'hooks/use-app-dispatch';
+import {removeItem} from "app/appSlice";
+import {useAppSelector} from "common/hooks/use-app-selector";
+import {useAppDispatch} from 'common/hooks/use-app-dispatch';
+import {ItemNameType} from "common/utils/constants/items";
+import classNames from "classnames";
+import {useDragDrop} from "common/hooks/use-drag-drop";
 
 export const Canvas = () => {
-  const [style, setStyle] = useState({})
-  const [data, setData] = useState<string>('empty')
-
-  const items = useAppSelector(state => state.app.itemsOnCanvas)
-  const mode = useAppSelector(state => state.app.mode)
   const dispatch = useAppDispatch()
+  const itemsOnCanvas = useAppSelector(state => state.app.itemsOnCanvas)
+  const mode = useAppSelector(state => state.app.mode)
+  const {
+    dragLeaveHandler,
+    dragStartHandler,
+    dragOverHandler,
+    dropHandler,
+    dropCanvasHandler,
+    dragOverCanvasHandler,
+    dragLeaveCanvasHandler,
+    myItems
+  } = useDragDrop()
   const constructionMode = mode === 'constructor'
-  const doubleClickHandler = (item: ItemType) => {
-    if (constructionMode) dispatch(removeItem({item}))
+  const canvasClasses = classNames(s.emptyCanvas, {
+    [s.canvasWithData]: itemsOnCanvas.length !== 0 || mode === 'runtime',
+  })
+
+  const doubleClickHandler = (name: ItemNameType) => {
+    if (constructionMode) dispatch(removeItem(name))
   }
-  const dragStartHandler = () => {
-    console.log('start')
-  }
-  const dragOverHandler = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    setStyle({...style, background: '#F0F9FF'})
-    // setData('')
-    console.log('over')
-  }
-  const dragLeaveHandler = () => {
-    setStyle({...style, background: '#FFFFFF'})
-    // setData('empty')
-    console.log('leave')
-  }
-  const dragEndHandler = () => {
-    console.log('end')
-  }
-  const dropHandler = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    dispatch(setItem())
-    setStyle({background: '#FFFFFF', justifyContent: 'flex-start', border: '0'})
-    setData('')
-    console.log(e)
-  }
+
   return (
-    <div className={s.canvas}
-         style={style}
-         onDragStart={e => dragStartHandler()}
-         onDragOver={e => dragOverHandler(e)}
-         onDragLeave={e => dragLeaveHandler()}
-         onDragEnd={e => dragEndHandler()}
-         onDrop={e => dropHandler(e)}
+    <div className={canvasClasses}
+         onDragOver={e => dragOverCanvasHandler(e)}
+         onDragLeave={e => dragLeaveCanvasHandler(e)}
+         onDrop={e => dropCanvasHandler(e)}
     >
-      {data === 'empty' && <DataForCanvas/>}
-      {items.includes('display') &&
-          <div
-              onDoubleClick={() => doubleClickHandler('display')}
-          >
-              <Display inactive={constructionMode}/>
-          </div>}
-      {
-        items.includes('operations') &&
-          <div
-              onDoubleClick={() => doubleClickHandler('operations')}
-              style={constructionMode ? {cursor: 'move'} : {}} draggable={constructionMode}>
-              <OperationsBlock inactive={constructionMode}/>
-          </div>}
-      {
-        items.includes('digital') &&
-          <div
-              onDoubleClick={() => doubleClickHandler('digital')}
-              style={constructionMode ? {cursor: 'move'} : {}} draggable={constructionMode}>
-              <DigitalBlock inactive={constructionMode}/>
-          </div>}
-      {
-        items.includes('equals') &&
-          <div
-              onDoubleClick={() => doubleClickHandler('equals')}
-              style={constructionMode ? {cursor: 'move'} : {}} draggable={constructionMode}>
-              <Equals inactive={constructionMode}/>
-          </div>}
+      {constructionMode && itemsOnCanvas.length === 0 && <DataForCanvas/>}
+      {myItems
+        .filter(i => itemsOnCanvas.includes(i.name))
+        .map(item => {
+            const {Component, id, name} = item
+            return <div
+              key={id}
+              onDragStart={e => dragStartHandler(name)}
+              onDragOver={e => dragOverHandler(e, item)}
+              onDragLeave={e => dragLeaveHandler(e)}
+              onDragEnd={e => dragLeaveHandler(e)}
+              onDrop={e => dropHandler(e, item)}
+              onDoubleClick={() => doubleClickHandler(name)}
+              style={name !== 'display' && constructionMode ? {cursor: 'move'} : {}}
+              draggable={name !== 'display' && constructionMode}
+            >
+              <Component inactive={constructionMode}/>
+            </div>
+          }
+        )}
     </div>
   )
 }
