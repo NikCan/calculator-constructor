@@ -1,6 +1,6 @@
 {
   "name": "calculator",
-  "homepage": "https://nikcan.github.io/calculator",
+  "homepage": "https://nikcan.github.io/calculator-constructor",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
