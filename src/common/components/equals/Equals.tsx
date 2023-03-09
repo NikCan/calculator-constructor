@@ -14,7 +14,7 @@ export const Equals = ({inactive}: Props) => {
 
   return (
     <div className={s.equalsContainer}>
-      <button onClick={setResult} disabled={inactive} className={classesForButton}>=</button>
+      <button onClick={() => setResult('=')} disabled={inactive} className={classesForButton}>=</button>
     </div>
   )
 }

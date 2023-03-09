@@ -1,46 +1,42 @@
 import {useAppSelector} from "./use-app-selector";
 import {useAppDispatch} from "./use-app-dispatch";
-import {setInputValueFromInput, setInputValueFromKey, setOperation} from "../../app/appSlice";
+import {setInputValue, addInputValue, setOperation} from "app/appSlice";
+import {getResult} from "../utils/helpers/get-result";
 
 export const useCalculator = () => {
-  const value = useAppSelector(state => state.app.inputValue)
+  const inputValue = useAppSelector(state => state.app.inputValue)
   const rememberedValue = useAppSelector(state => state.app.rememberedValue)
   const operation = useAppSelector(state => state.app.operation)
   const dispatch = useAppDispatch()
 
-  const setValue = (title: string, method: string) => {
-    method === 'key' && dispatch(setInputValueFromKey(title))
-    method === 'input' && dispatch(setInputValueFromInput(title))
+  const setValue = (title: string) => {
+    if (operation === '=') {
+      dispatch(setOperation(''))
+      dispatch(setInputValue(title))
+    } else if (inputValue.length < 11) {
+      dispatch(addInputValue(title))
+    }
   }
 
   const saveOperation = (title: string) => {
     dispatch(setOperation(title))
-    dispatch(setInputValueFromInput('0'))
-  }
-  const getResult = () => {
-    switch (operation) {
-      case '+':
-        return Number(rememberedValue) + Number(value)
-      case '-':
-        return Number(rememberedValue) - Number(value)
-      case '*':
-        return Number(rememberedValue) * Number(value)
-      case '/': {
-        if (value !== '0') {
-          return Number(rememberedValue) / Number(value)
-        } else return 'не определено'
-      }
-      default:
-        return 0
-    }
+    dispatch(setInputValue('0'))
   }
 
-  const setResult = () => {
-    const result = getResult().toString()
-    dispatch(setInputValueFromInput(result))
+  const setResult = (title: string) => {
+    let result = getResult(operation, rememberedValue, inputValue).toString()
+    if (result.length > 11) {
+      if (result.split('.')[0].length > 11) {
+        result = 'не определено'
+      } else {
+        result = Number(result).toFixed(11 - result.split('.')[0].length).toString()
+      }
+    }
+    dispatch(setInputValue(result))
+    dispatch(setOperation(title))
   }
 
   return {
-    setValue, value, saveOperation, setResult
+    setValue, inputValue, saveOperation, setResult
   }
 }

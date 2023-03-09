@@ -24,21 +24,21 @@ const slice = createSlice({
     removeItem(state, action: PayloadAction<ItemNameType>) {
       state.itemsOnCanvas = state.itemsOnCanvas.filter(i => i !== action.payload)
     },
-    setInputValueFromKey(state, action: PayloadAction<string>) {
+    addInputValue(state, action: PayloadAction<string>) {
       if (state.inputValue === '0') {
         state.inputValue = action.payload.toString()
       } else {
         state.inputValue = state.inputValue + action.payload
       }
     },
-    setInputValueFromInput(state, action: PayloadAction<string>) {
-      state.inputValue = action.payload
+    setInputValue(state, action: PayloadAction<string>) {
+      state.inputValue = action.payload.toString()
     },
     setOperation(state, action: PayloadAction<string>) {
       state.operation = action.payload
       state.rememberedValue = state.inputValue
     },
-      },
+  },
 })
 
 export const appReducer = slice.reducer
@@ -47,8 +47,8 @@ export const {
   removeItem,
   changeMode,
   rememberItem,
-  setInputValueFromInput,
-  setInputValueFromKey,
+  addInputValue,
+  setInputValue,
   setOperation
 } = slice.actions
 
