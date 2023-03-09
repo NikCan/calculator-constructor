@@ -1,20 +1,18 @@
-import {ModeType} from "app/appSlice";
 import {ReactElement} from "react";
 import s from './ToggleButton.module.css'
 import classNames from "classnames";
 
 type Props = {
-  name: ModeType
-  mode: ModeType
+  active: boolean
   title: string
-  clickHandler: (mode: ModeType) => void
+  clickHandler: () => void
   style?: {}
   children?: ReactElement
 }
-export const ToggleButton = ({clickHandler, mode, title, style, name, children}: Props) => {
-  const buttonClasses = classNames(s.button, {[s.activeButton]: mode === name})
+export const ToggleButton = ({clickHandler, active, title, style, children}: Props) => {
+  const buttonClasses = classNames(s.button, {[s.activeButton]: active})
   return (
-    <button onClick={() => clickHandler(name)} className={buttonClasses} style={style}>
+    <button onClick={clickHandler} className={buttonClasses} style={style}>
       <div className={s.buttonText}>
         {children}
         {title}
