@@ -21,6 +21,7 @@ export const Canvas = () => {
     dragLeaveCanvasHandler,
     myItems
   } = useDragDrop()
+  
   const constructionMode = mode === 'constructor'
   const canvasClasses = classNames(s.emptyCanvas, {
     [s.canvasWithData]: itemsOnCanvas.length !== 0 || mode === 'runtime',
@@ -32,6 +33,7 @@ export const Canvas = () => {
   const doubleClickHandler = (name: ItemNameType) => {
     if (constructionMode) dispatch(removeItem(name))
   }
+
 
   return (
     <div className={canvasClasses}

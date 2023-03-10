@@ -5,24 +5,27 @@ import {changeMode, ModeType, setInputValue} from "app/appSlice";
 import {useAppSelector} from "common/hooks/use-app-selector";
 import {useAppDispatch} from "common/hooks/use-app-dispatch";
 import {ToggleButton} from "../toggle-button/ToggleButton";
-import {appModes} from "common/utils/constants/appModes";
+import {appModes} from "common/utils/constants/app-modes";
 
 export const ViewToggle = () => {
   const dispatch = useAppDispatch()
   const mode = useAppSelector(state => state.app.mode)
+  const constructionMode = mode === 'constructor'
 
   const clickHandler = (mode: ModeType) => {
     dispatch(changeMode({mode}))
-    if (mode === 'constructor') dispatch(setInputValue('0'))
+    if (constructionMode) dispatch(setInputValue('0'))
   }
+
   return (
     <div className={s.toggleBox}>
-      {appModes.map(item => {
+      {appModes.map((item,i) => {
         return <ToggleButton
-          style={item === 'constructor' ? {width: '133px'} : {}}
+          key={i}
+          style={constructionMode ? {width: '133px'} : {}}
           clickHandler={() => clickHandler(item)}
           active={mode === item}
-          title={item === 'runtime' ? 'Runtime' : 'Constructor'}>
+          title={constructionMode ? 'Constructor' : 'Runtime'}>
           {item === 'runtime'
             ? <VisibilityOutlinedIcon color={mode === item ? 'info' : 'inherit'} fontSize={'small'}/>
             : <CodeOutlinedIcon color={mode === item ? 'info' : 'inherit'} fontSize={'small'}/>}

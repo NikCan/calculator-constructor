@@ -14,7 +14,7 @@ export const DigitalBlock = ({inactive}: Props) => {
     <div className={s.digitalContainer}>
       {numbers
         .map((n, i) => <Button callBack={setValue} inactive={inactive} key={i} title={n}/>)}
-      <Button callBack={setValue} width={'152px'} title={0} inactive={inactive}/>
+      <Button callBack={(title)=>setValue(title)} width={'152px'} title={0} inactive={inactive}/>
       <Button callBack={() => setValue('.')} title={','} inactive={inactive}/>
     </div>
   )
