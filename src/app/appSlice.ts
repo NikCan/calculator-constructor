@@ -7,13 +7,10 @@ const slice = createSlice({
     mode: 'constructor' as ModeType,
     draggedItem: '' as ItemNameType,
     itemsOnCanvas: [] as ItemNameType[],
-    inputValue: '0',
-    operation: '',
-    rememberedValue: '',
   },
   reducers: {
-    changeMode(state, action: PayloadAction<{ mode: ModeType }>) {
-      state.mode = action.payload.mode
+    changeMode(state, action: PayloadAction<ModeType>) {
+      state.mode = action.payload
     },
     rememberItem(state, action: PayloadAction<ItemNameType>) {
       state.draggedItem = action.payload
@@ -24,20 +21,6 @@ const slice = createSlice({
     removeItem(state, action: PayloadAction<ItemNameType>) {
       state.itemsOnCanvas = state.itemsOnCanvas.filter(i => i !== action.payload)
     },
-    addInputValue(state, action: PayloadAction<string>) {
-      if (state.inputValue === '0') {
-        state.inputValue = action.payload.toString()
-      } else {
-        state.inputValue = state.inputValue + action.payload
-      }
-    },
-    setInputValue(state, action: PayloadAction<string>) {
-      state.inputValue = action.payload.toString()
-    },
-    setOperation(state, action: PayloadAction<string>) {
-      state.operation = action.payload
-      state.rememberedValue = state.inputValue
-    },
   },
 })
 
@@ -47,9 +30,6 @@ export const {
   removeItem,
   changeMode,
   rememberItem,
-  addInputValue,
-  setInputValue,
-  setOperation
 } = slice.actions
 
 export type ModeType = 'constructor' | 'runtime'

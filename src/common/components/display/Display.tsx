@@ -1,14 +1,13 @@
 import s from './Display.module.css'
 import classNames from "classnames";
-import {useCalculator} from "common/hooks/use-calculator";
 
 type Props = {
   inactive?: boolean
+  inputValue?: string
 }
 
-export const Display = ({inactive}: Props) => {
+export const Display = ({inactive, inputValue}: Props) => {
   const classesForContainer = classNames(s.displayContainer, {[s.inactiveItem]: inactive})
-  const {inputValue} = useCalculator()
 
   return (
     <div className={classesForContainer}>

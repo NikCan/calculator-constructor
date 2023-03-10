@@ -31,7 +31,13 @@ export const items: ItemType[] = [
 export type ItemType = {
   id: string
   name: ItemNameType
-  Component: FC<{ inactive?: boolean }>
+  Component: FC<{
+    inactive?: boolean,
+    inputValue?: string,
+    setValue?: (title: string) => void,
+    setResult?: (title: string) => void,
+    saveOperation?: (title: string) => void
+  }>
 }
 
 export type ItemNameType = 'display' | 'operations' | 'digital' | 'equals'

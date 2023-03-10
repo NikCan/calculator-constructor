@@ -1,13 +1,12 @@
 import s from './OperationsBlock.module.css'
 import {Button} from "../button/Button";
 import {operations} from "common/utils/constants/operations";
-import {useCalculator} from "common/hooks/use-calculator";
 
 type Props = {
   inactive?: boolean
+  saveOperation?: (title: string) => void
 }
-export const OperationsBlock = ({inactive}: Props) => {
-  const {saveOperation} = useCalculator()
+export const OperationsBlock = ({inactive, saveOperation = () => console.log('error')}: Props) => {
 
   return (
     <div className={s.operationsContainer}>

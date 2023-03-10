@@ -7,7 +7,7 @@ export const getResult = (operation: string, rememberedValue: string, inputValue
     case 'x':
       return Number(rememberedValue) * Number(inputValue)
     case '/': {
-      if (inputValue !== '0') {
+      if (inputValue.toString() !== '0') {
         return Number(rememberedValue) / Number(inputValue)
       } else return 'не определено'
     }

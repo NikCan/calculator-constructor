@@ -29,7 +29,7 @@ export const Sidebar = () => {
               draggable={needDrag(name)}
               onDragStart={() => dragStartHandler(name)}
             >
-              <Component inactive/>
+              <Component inputValue={'0'} inactive/>
             </div>
           )
         })}

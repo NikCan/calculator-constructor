@@ -1,13 +1,12 @@
 import s from './Equals.module.css'
 import classNames from "classnames";
-import {useCalculator} from "common/hooks/use-calculator";
 
 type Props = {
   inactive?: boolean
+  setResult?: (title: string) => void
 }
 
-export const Equals = ({inactive}: Props) => {
-  const {setResult} = useCalculator()
+export const Equals = ({inactive, setResult = () => console.log('error')}: Props) => {
   const classesForButton = classNames(s.equalsButton, {
     [s.inactiveEqualsButton]: inactive,
   })

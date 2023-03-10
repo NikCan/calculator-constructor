@@ -6,11 +6,13 @@ import {useAppDispatch} from 'common/hooks/use-app-dispatch';
 import {ItemNameType} from "common/utils/constants/items";
 import classNames from "classnames";
 import {useDragDrop} from "common/hooks/use-drag-drop";
+import {useCalculator} from "common/hooks/use-calculator";
 
 export const Canvas = () => {
   const dispatch = useAppDispatch()
   const itemsOnCanvas = useAppSelector(state => state.app.itemsOnCanvas)
   const mode = useAppSelector(state => state.app.mode)
+  const {setValue, inputValue, saveOperation, setResult} = useCalculator()
   const {
     dragLeaveHandler,
     dragStartHandler,
@@ -21,7 +23,7 @@ export const Canvas = () => {
     dragLeaveCanvasHandler,
     myItems
   } = useDragDrop()
-  
+
   const constructionMode = mode === 'constructor'
   const canvasClasses = classNames(s.emptyCanvas, {
     [s.canvasWithData]: itemsOnCanvas.length !== 0 || mode === 'runtime',
@@ -33,7 +35,6 @@ export const Canvas = () => {
   const doubleClickHandler = (name: ItemNameType) => {
     if (constructionMode) dispatch(removeItem(name))
   }
-
 
   return (
     <div className={canvasClasses}
@@ -58,7 +59,13 @@ export const Canvas = () => {
                 className={classesForItem(name)}
                 draggable={name !== 'display' && constructionMode}
               >
-                <Component inactive={constructionMode}/>
+                <Component
+                  inactive={constructionMode}
+                  saveOperation={saveOperation}
+                  inputValue={inputValue}
+                  setResult={setResult}
+                  setValue={setValue}
+                />
               </div>
             )
           }
