@@ -1,6 +1,6 @@
-import {Button} from "../button/Button";
 import s from './DigitalBlock.module.css'
-import {numbers} from "common/utils/constants/numbers";
+import {numbers} from "common/utils";
+import {Button} from "../button/Button";
 
 type Props = {
   inactive?: boolean

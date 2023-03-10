@@ -1,8 +1,7 @@
 import {DragEvent, useState} from "react";
-import {ItemNameType, items, ItemType} from "common/utils/constants/items";
-import {rememberItem, setItem} from "app/appSlice";
-import {useAppDispatch} from "./use-app-dispatch";
-import {useAppSelector} from "./use-app-selector";
+import {ItemNameType, rememberItem, setItem} from "app/appSlice";
+import {useAppDispatch, useAppSelector} from "common/hooks";
+import {items, ItemType} from "common/utils";
 
 export const useDragDrop = () => {
   const dispatch = useAppDispatch()

@@ -1,5 +1,4 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {ItemNameType} from "common/utils/constants/items";
 
 const slice = createSlice({
   name: "app",
@@ -33,3 +32,4 @@ export const {
 } = slice.actions
 
 export type ModeType = 'constructor' | 'runtime'
+export type ItemNameType = 'display' | 'operations' | 'digital' | 'equals'

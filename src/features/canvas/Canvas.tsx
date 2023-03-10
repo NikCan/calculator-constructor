@@ -1,12 +1,8 @@
-import s from './Canvas.module.css'
-import {DataForCanvas} from "./components/DataForCanvas";
-import {removeItem} from "app/appSlice";
-import {useAppSelector} from "common/hooks/use-app-selector";
-import {useAppDispatch} from 'common/hooks/use-app-dispatch';
-import {ItemNameType} from "common/utils/constants/items";
 import classNames from "classnames";
-import {useDragDrop} from "common/hooks/use-drag-drop";
-import {useCalculator} from "common/hooks/use-calculator";
+import s from './Canvas.module.css'
+import {SignForCanvas} from "./components";
+import {ItemNameType, removeItem} from "app/appSlice";
+import {useAppDispatch, useCalculator, useAppSelector, useDragDrop} from 'common/hooks';
 
 export const Canvas = () => {
   const dispatch = useAppDispatch()
@@ -35,14 +31,13 @@ export const Canvas = () => {
   const doubleClickHandler = (name: ItemNameType) => {
     if (constructionMode) dispatch(removeItem(name))
   }
-
   return (
     <div className={canvasClasses}
          onDragOver={e => dragOverCanvasHandler(e)}
          onDragLeave={e => dragLeaveCanvasHandler(e)}
          onDrop={e => dropCanvasHandler(e)}
     >
-      {constructionMode && itemsOnCanvas.length === 0 && <DataForCanvas/>}
+      {constructionMode && itemsOnCanvas.length === 0 && <SignForCanvas/>}
       {myItems
         .filter(i => itemsOnCanvas.includes(i.name))
         .map(item => {

@@ -1,4 +1,4 @@
-import {getResult} from "../utils/helpers/get-result";
+import {getResult} from "common/utils";
 import {useEffect, useState} from "react";
 import {useAppSelector} from "./use-app-selector";
 

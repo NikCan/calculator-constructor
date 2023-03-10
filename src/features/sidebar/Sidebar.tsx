@@ -1,8 +1,8 @@
-import s from './Sidebar.module.css'
-import {useAppSelector} from "common/hooks/use-app-selector";
-import {useDragDrop} from "common/hooks/use-drag-drop";
-import {ItemNameType, items} from "common/utils/constants/items";
 import classNames from "classnames";
+import s from './Sidebar.module.css'
+import {useAppSelector, useDragDrop} from "common/hooks";
+import {ItemNameType} from "app/appSlice";
+import {items} from "common/utils";
 
 export const Sidebar = () => {
   const itemsOnCanvas = useAppSelector(state => state.app.itemsOnCanvas)
@@ -16,7 +16,6 @@ export const Sidebar = () => {
     [s.disabledComponent]: needDisable(name),
     [s.moveStyle]: needDrag(name)
   })
-
   return (
     <div className={s.sidebar}>
       {items

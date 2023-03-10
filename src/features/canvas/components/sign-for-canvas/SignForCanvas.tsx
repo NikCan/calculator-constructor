@@ -1,7 +1,7 @@
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
-import s from "./DataForCanvas.module.css";
+import s from "./SignForCanvas.module.css";
 
-export const DataForCanvas = () => {
+export const SignForCanvas = () => {
   return(
     <div className={s.containerForData}>
       <AddPhotoAlternateOutlinedIcon/>

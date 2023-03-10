@@ -2,10 +2,9 @@ import s from './ViewToggle.module.css'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import {changeMode, ModeType} from "app/appSlice";
-import {useAppSelector} from "common/hooks/use-app-selector";
-import {useAppDispatch} from "common/hooks/use-app-dispatch";
+import {useAppSelector, useAppDispatch} from "common/hooks";
+import {appModes} from "common/utils";
 import {ToggleButton} from "../toggle-button/ToggleButton";
-import {appModes} from "common/utils/constants/app-modes";
 
 export const ViewToggle = () => {
   const dispatch = useAppDispatch()
@@ -18,7 +17,7 @@ export const ViewToggle = () => {
       {appModes.map((item, i) => {
         return <ToggleButton
           key={i}
-          style={mode === 'constructor' ? {width: '133px'} : {}}
+          style={item === 'constructor' ? {width: '133px'} : {}}
           clickHandler={() => clickHandler(item)}
           active={mode === item}
           title={item === 'runtime' ? 'Runtime' : 'Constructor'}>

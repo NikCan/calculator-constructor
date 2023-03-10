@@ -1,9 +1,7 @@
 import {nanoid} from "@reduxjs/toolkit";
-import {Display} from "common/components/display/Display";
-import {OperationsBlock} from "common/components/operations-block/OperationsBlock";
-import {DigitalBlock} from "common/components/digital-block/DigitalBlock";
-import {Equals} from "common/components/equals/Equals";
 import {FC} from "react";
+import {Display, OperationsBlock, DigitalBlock, Equals} from "common/components";
+import {ItemNameType} from "app/appSlice";
 
 export const items: ItemType[] = [
   {
@@ -39,5 +37,3 @@ export type ItemType = {
     saveOperation?: (title: string) => void
   }>
 }
-
-export type ItemNameType = 'display' | 'operations' | 'digital' | 'equals'
