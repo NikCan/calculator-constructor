@@ -1,6 +1,6 @@
 import {Canvas} from "features/canvas/Canvas";
 import {Sidebar} from "features/sidebar/Sidebar";
-import {ViewToggle} from "common/components/view-toggle/ViewToggle";
+import {ViewToggle} from "features/view-toggle/ViewToggle";
 import s from './App.module.css'
 import {useAppSelector} from "common/hooks";
 

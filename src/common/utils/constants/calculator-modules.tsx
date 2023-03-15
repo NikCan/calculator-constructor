@@ -3,7 +3,7 @@ import {FC} from "react";
 import {Display, OperationsBlock, DigitalBlock, Equals} from "common/components";
 import {ItemNameType} from "app/appSlice";
 
-export const items: ItemType[] = [
+export const modules: ModuleType[] = [
   {
     id: nanoid(),
     name: 'display',
@@ -25,8 +25,8 @@ export const items: ItemType[] = [
     Component: Equals
   },
 ]
-
-export type ItemType = {
+export type ModuleNameType = 'display' | 'operations' | 'digital' | 'equals'
+export type ModuleType = {
   id: string
   name: ItemNameType
   Component: FC<{

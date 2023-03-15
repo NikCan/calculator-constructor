@@ -17,7 +17,7 @@ export const Canvas = () => {
     dropCanvasHandler,
     dragOverCanvasHandler,
     dragLeaveCanvasHandler,
-    myItems
+    items
   } = useDragDrop()
 
   const constructionMode = mode === 'constructor'
@@ -31,6 +31,34 @@ export const Canvas = () => {
   const doubleClickHandler = (name: ItemNameType) => {
     if (constructionMode) dispatch(removeItem(name))
   }
+  const canvasItems = items
+    .filter(i => itemsOnCanvas.includes(i.name))
+    .map(item => {
+        const {Component, id, name} = item
+        return (
+          <div
+            key={id}
+            onDragStart={() => dragStartHandler(name)}
+            onDragOver={e => dragOverHandler(e, item)}
+            onDragLeave={dragLeaveHandler}
+            onDragEnd={dragLeaveHandler}
+            onDrop={e => dropHandler(e, item)}
+            onDoubleClick={() => doubleClickHandler(name)}
+            className={classesForItem(name)}
+            draggable={name !== 'display' && constructionMode}
+          >
+            <Component
+              inactive={constructionMode}
+              saveOperation={saveOperation}
+              inputValue={inputValue}
+              setResult={setResult}
+              setValue={setValue}
+            />
+          </div>
+        )
+      }
+    )
+
   return (
     <div className={canvasClasses}
          onDragOver={e => dragOverCanvasHandler(e)}
@@ -38,33 +66,7 @@ export const Canvas = () => {
          onDrop={e => dropCanvasHandler(e)}
     >
       {constructionMode && itemsOnCanvas.length === 0 && <SignForCanvas/>}
-      {myItems
-        .filter(i => itemsOnCanvas.includes(i.name))
-        .map(item => {
-            const {Component, id, name} = item
-            return (
-              <div
-                key={id}
-                onDragStart={() => dragStartHandler(name)}
-                onDragOver={e => dragOverHandler(e, item)}
-                onDragLeave={e => dragLeaveHandler(e)}
-                onDragEnd={e => dragLeaveHandler(e)}
-                onDrop={e => dropHandler(e, item)}
-                onDoubleClick={() => doubleClickHandler(name)}
-                className={classesForItem(name)}
-                draggable={name !== 'display' && constructionMode}
-              >
-                <Component
-                  inactive={constructionMode}
-                  saveOperation={saveOperation}
-                  inputValue={inputValue}
-                  setResult={setResult}
-                  setValue={setValue}
-                />
-              </div>
-            )
-          }
-        )}
+      {canvasItems}
     </div>
   )
 }

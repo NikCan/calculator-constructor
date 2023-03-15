@@ -1,14 +1,16 @@
 export const getResult = (operation: string, rememberedValue: string, inputValue: string) => {
+  const number1 = +rememberedValue
+  const number2 = +inputValue
   switch (operation) {
     case '+':
-      return Number(rememberedValue) + Number(inputValue)
+      return number1 + number2
     case '-':
-      return Number(rememberedValue) - Number(inputValue)
+      return number1 - number2
     case 'x':
-      return Number(rememberedValue) * Number(inputValue)
+      return number1 * number2
     case '/': {
-      if (inputValue.toString() !== '0') {
-        return Number(rememberedValue) / Number(inputValue)
+      if (number2 !== 0) {
+        return number1 / number2
       } else return 'не определено'
     }
     default:

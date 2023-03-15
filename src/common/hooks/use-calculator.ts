@@ -21,7 +21,7 @@ export const useCalculator = () => {
       setOperation('')
       setRememberedValue(inputValue)
       setInputValue(title)
-    } else if (inputValue.toString().length < 11) {
+    } else if (inputValue.length < 11) {
       addInputValue(title)
     }
   }

@@ -15,7 +15,7 @@ const slice = createSlice({
       state.draggedItem = action.payload
     },
     setItem(state) {
-      if (!state.itemsOnCanvas.includes(state.draggedItem)) state.itemsOnCanvas.push(state.draggedItem)
+      state.itemsOnCanvas.push(state.draggedItem)
     },
     removeItem(state, action: PayloadAction<ItemNameType>) {
       state.itemsOnCanvas = state.itemsOnCanvas.filter(i => i !== action.payload)

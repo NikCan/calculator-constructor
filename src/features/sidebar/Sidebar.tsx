@@ -2,7 +2,7 @@ import classNames from "classnames";
 import s from './Sidebar.module.css'
 import {useAppSelector, useDragDrop} from "common/hooks";
 import {ItemNameType} from "app/appSlice";
-import {items} from "common/utils";
+import {modules} from "common/utils";
 
 export const Sidebar = () => {
   const itemsOnCanvas = useAppSelector(state => state.app.itemsOnCanvas)
@@ -16,22 +16,24 @@ export const Sidebar = () => {
     [s.disabledComponent]: needDisable(name),
     [s.moveStyle]: needDrag(name)
   })
+
+  const sidebarItems = modules
+    .map(({Component, name, id}) => {
+      return (
+        <div
+          key={id}
+          className={classesForItem(name)}
+          draggable={needDrag(name)}
+          onDragStart={() => dragStartHandler(name)}
+        >
+          <Component inputValue={'0'} inactive/>
+        </div>
+      )
+    })
+
   return (
     <div className={s.sidebar}>
-      {items
-        .map((item) => {
-          const {Component, name, id} = item
-          return (
-            <div
-              key={id}
-              className={classesForItem(name)}
-              draggable={needDrag(name)}
-              onDragStart={() => dragStartHandler(name)}
-            >
-              <Component inputValue={'0'} inactive/>
-            </div>
-          )
-        })}
+      {sidebarItems}
     </div>
   )
 }
